@@ -7,29 +7,34 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private UserRole role;
 
     public User() {}
 
     public User(
         String name,
         String email,
-        String password
+        String password,
+        UserRole role
     ) {
         this.id = UUID.randomUUID();;
         this.name = name;
         this.email = email;
         this.password = password; // Se espera que venga encriptada
+        this.role = role;
     }
 
     public static User reconstruct(
         String name,
         String email,
-        String password
+        String password,
+        UserRole role
     ) {
         User user = new User();
         user.name = name;
         user.email = email;
         user.password = password; 
+        user.role = role;
         return user;
     }
 
@@ -56,6 +61,14 @@ public class User {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
     
 }

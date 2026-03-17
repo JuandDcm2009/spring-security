@@ -2,9 +2,10 @@ package com.ponscio.spring_security.infrastructure.persistence.mappers;
 
 import org.springframework.stereotype.Component;
 
-import com.ponscio.spring_security.application.dto.UserRequestDto;
+import com.ponscio.spring_security.application.dto.RegisterRequest;
 import com.ponscio.spring_security.application.dto.UserResponseDto;
 import com.ponscio.spring_security.domain.model.User;
+import com.ponscio.spring_security.domain.model.UserRole;
 import com.ponscio.spring_security.infrastructure.persistence.entity.UserEntity;
 
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,8 @@ public class UserMapper {
             domain.getId(),
             domain.getName(),
             domain.getEmail(),
-            domain.getPassword()
+            domain.getPassword(),
+            domain.getRole().toString()
         );
     }
 
@@ -28,6 +30,7 @@ public class UserMapper {
         newUser.setName(entity.getName());
         newUser.setEmail(entity.getEmail());
         newUser.setPassword(entity.getPassword());
+        newUser.setRole(UserRole.valueOf(entity.getRole()));
         return newUser;
     }   
 
@@ -39,8 +42,8 @@ public class UserMapper {
         );
     } 
 
-    public UserRequestDto toRequest(User user) {
-        return new UserRequestDto(
+    public RegisterRequest toRequest(User user) {
+        return new RegisterRequest(
             user.getName(),
             user.getEmail(),
             user.getPassword()
